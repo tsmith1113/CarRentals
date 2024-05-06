@@ -1,62 +1,81 @@
 "use strict";
 
-//input
-
+// Input elements
 const inputPickupDate = document.getElementById("inputPickupDate");
-const inputNumOfDays = document.getElementById("inputNumOfDays");
-const inputOptElecTollTagCheckbox = document.getElementById("inputOptElecTollTagCheckbox");
+const inputNumDays = document.getElementById("inputNumDays");
+const inputElectronicTagCheckbox = document.getElementById("inputElectronicTagCheckbox");
 const inputOptGPSCheckbox = document.getElementById("inputOptGPSCheckbox");
-const inputOptRoadsideAsstCheckbox = document.getElementById("inputOptRoadsideAsstCheckbox");
+const inputOptRoadsideAssiCheckbox = document.getElementById("inputOptRoadsideAssiCheckbox");
 const inputUnder25NoRadio = document.getElementById("inputUnder25NoRadio");
 const inputUnder25YesRadio = document.getElementById("inputUnder25YesRadio");
-//button
+
+// Button
 const estimateTotalCostButton = document.getElementById("estimateTotalCostButton");
-//output
+
+// Output elements
 const outputCarRental = document.getElementById("outputCarRental");
 const outputOptions = document.getElementById("outputOptions");
 const outputSurcharge = document.getElementById("outputSurcharge");
-const outputTotal = document.getElementById("outputTotal");
+const outputdueCharge = document.getElementById("outputdueCharge");
+
 
 window.onload = function(){
     estimateTotalCostButton.onclick = onEstimateTotalCostButtonClick;
 }
 
+
 function onEstimateTotalCostButtonClick(){
-    //get known values
-    let NumOfDays = Number(inputNumOfDays.value);
-    let isOptElecTollTag = inputOptElecTollTagCheckbox.ariaChecked;
-    let isOptGPS = inputOptGPSCheckbox.ariaChecked;
-    let isOptRoadAsst = inputOptRoadsideAsstCheckbox.checked;
+// get known values
 
-    let isUnder25 = inputUnder25YesRadio.checked;
+let numOfDays = inputNumDays.value;
 
-//calculate unknown values
+let isElectronicTag = inputElectronicTagCheckbox.checked;
+let isOptGPS = inputOptGPSCheckbox.checked;
+let isOptRoadAsst = inputOptRoadsideAssiCheckbox.checked;
 
-    let carRenatlAmount = (29.99 * NumOfDays);
-    let optionsAmount = 0;
-    if(isOptElecTollTag){
-        optionsAmount += (3.95 * NumOfDays);
-    }
-    if(isOptGPS){
-        optionsAmount +=(2.95 * NumOfDays);
-    }
-    if(isOptRoadAsst){
-        optionsAmount +=(2.95 * NumOfDays)
-    }
-    let surcharageAmount = 2;
-    if(isUnder25){
-        surcharageAmount = 0.30 * (carRenatlAmount + optionsAmount);
-    }else{
-        surcharageAmount = 0;
-    }
-    let totaldueAmount = carRenatlAmount + optionsAmount + surcharageAmount;
+let isUnder25 = inputUnder25YesRadio.checked;
 
-    //display the results
-    outputCarRental.innerHTML = carRenatlAmount;
-    outputOptions.innerHTML = optionsAmount;
-    outputSurcharge.innerHTML = surcharageAmount;
-    outputTotal.innerHTML = totaldueAmount;
+console.log(numOfDays);
+console.log(isElectronicTag);
+console.log(isOptGPS);
+console.log(isOptRoadAsst);
+console.log(isUnder25);
 
+// calculate unknown values
+let carRentalAmount = 29.99 * numOfDays;
+
+let Options = 0;
+
+if(isElectronicTag){
+    Options += (3.95 * numOfDays);
+}
+
+if(isOptGPS){
+    Options += (2.95 * numOfDays);
+}
+
+if(inputOptRoadsideAssiCheckbox){
+    Options += (2.95 * numOfDays)
+}
+
+let Surcharge;
+
+if(isUnder25){
+    Surcharge = 0.30 * (carRentalAmount + Options);
+}
+else{
+    Surcharge = 0;
+}
+
+let dueCharge = carRentalAmount + Options + Surcharge;
+
+
+
+// display the results
+outputCarRental.innerHTML = carRentalAmount;
+outputOptions.innerHTML = Options;
+outputSurcharge.innerHTML = Surcharge;
+outputdueCharge.innerHTML = dueCharge;
 }
 
 
